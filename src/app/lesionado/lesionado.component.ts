@@ -21,23 +21,32 @@ export class LesionadoComponent implements OnInit {
     private location: Location,
     private router: Router,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.lesionadoForm = this.fb.group({});
+  }
   lesionadoId: any;
 
   ngOnInit() {
-    this.lesionadoForm = this.fb.group({
-      nombre: [''],
-    });
     this.lesionadoId = this.route.snapshot.params.id;
     this.storage = sessionStorage.getItem('FormData');
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
+      this.lesionadoForm = this.fb.group({
+        nombre: [this.data.lesionados[this.lesionadoId].nombre],
+      });
+    } else {
+      sessionStorage.clear();
+      this.lesionadoForm = this.fb.group({
+        nombre: [''],
+      });
     }
-    this.currentLesionado = this.data.lesionados[this.lesionadoId - 1];
+    this.currentLesionado = this.data.lesionados[this.lesionadoId];
   }
   guardar() {
     this.currentLesionado = this.lesionadoForm.value;
-    this.data.lesionados[this.lesionadoId - 1] = this.lesionadoForm.value;
+    this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
+    console.log(this.data);
+    sessionStorage.setItem('FormData', JSON.stringify(this.data));
   }
 
   volver() {
