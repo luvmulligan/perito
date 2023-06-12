@@ -1,0 +1,32 @@
+<button (click)="cargarLesionado()">Cargar Lesionado</button>
+<form [formGroup]="informe" (ngSubmit)="onSubmit()">
+  <div
+    formArrayName="lesionados"
+    *ngFor="let lesionado of informe.controls.lesionados.value; let i = index"
+  >
+    <button (click)="editar(i)">Editar</button>
+    <button (click)="eliminar(i)">Eliminar</button>
+
+    Lesionado
+    <span [formGroupName]="i"> {{ i + 1 }}</span>
+  </div>
+  <input
+    type="text"
+    placeholder="documento"
+    formControlName="documento"
+    (blur)="guardarEnSessionStorage()"
+  />
+  <input
+    type="text"
+    placeholder="pedido"
+    formControlName="pedido"
+    (blur)="guardarEnSessionStorage()"
+  />
+  <input
+    type="text"
+    placeholder="solicitado"
+    formControlName="solicitado"
+    (blur)="guardarEnSessionStorage()"
+  />
+</form>
+<!-- <router-outlet></router-outlet> -->
