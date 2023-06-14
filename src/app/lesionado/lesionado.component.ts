@@ -28,12 +28,23 @@ export class LesionadoComponent implements OnInit {
 
   ngOnInit() {
     this.storage = sessionStorage.getItem('FormData');
+
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
       // this.lesionadoId = this.data.lesionados[0];
-      this.lesionadoForm = this.fb.group({
-        nombre: [this.data.lesionados[this.lesionadoId].nombre],
-      });
+      if (this.data.lesionados[this.lesionadoId] === undefined) {
+        console.log('hola por aca');
+        this.lesionadoForm = this.fb.group({
+          nombre: [''],
+        });
+        console.log(this.lesionadoForm.value);
+      }
+      if (this.data.lesionados[this.lesionadoId] !== undefined) {
+        console.log('hola');
+        this.lesionadoForm = this.fb.group({
+          nombre: [this.data.lesionados[this.lesionadoId].nombre],
+        });
+      }
     } else {
       sessionStorage.clear();
       this.lesionadoForm = this.fb.group({
@@ -43,11 +54,15 @@ export class LesionadoComponent implements OnInit {
     this.currentLesionado = this.data.lesionados[this.lesionadoId];
   }
   guardar() {
-    this.currentLesionado = this.lesionadoForm.value;
+    // this.currentLesionado = this.lesionadoForm.value;
     this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
-    console.log(this.data);
+    let lesionadoValue = this.data.lesionados[this.lesionadoId];
+    this.data.lesionados[this.lesionadoId] = lesionadoValue;
+
+    console.log(this.data.lesionados);
+
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
-    this.mostrarInforme.emit(true);
+    // this.mostrarInforme.emit(true);
   }
 
   volver() {
