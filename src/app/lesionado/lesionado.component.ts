@@ -38,7 +38,6 @@ export class LesionadoComponent implements OnInit {
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
       if (this.data.lesionados[this.lesionadoId] === undefined) {
-        console.log('hola por aca');
         this.lesionadoForm = this.fb.group({
           nombre: [''],
         });

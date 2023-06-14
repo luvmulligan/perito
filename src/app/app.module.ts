@@ -10,6 +10,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { LesionadoComponent } from './lesionado/lesionado.component';
+import { DatosLesionadoComponent } from './datos-lesionado/datos-lesionado.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { LesionadoComponent } from './lesionado/lesionado.component';
     ProfileEditorComponent,
     InformeComponent,
     LesionadoComponent,
+    DatosLesionadoComponent,
   ],
   imports: [
     BrowserModule,
