@@ -29,36 +29,29 @@ export class InformeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.informe = this.fb.group({
-      documento: [0, Validators.required],
-      pedido: ['', Validators.required],
-      solicitado: ['', Validators.required],
-      solicito: ['', Validators.required],
-      lesionados: this.fb.array([]),
-    });
-    // if (sessionStorage.getItem('FormData') !== null) {
-    //   let storage = sessionStorage.getItem('FormData');
-    //   if (storage !== null) {
-    //     let form = JSON.parse(storage);
-    //     this.informe = this.fb.group({
-    //       documento: [form.documento, Validators.required],
-    //       pedido: [form.pedido, Validators.required],
-    //       solicitado: [form.solicitado, Validators.required],
-    //       solicito: ['', Validators.required],
-    //       lesionados: this.fb.array(form.lesionados),
-    //     });
-    //   }
-    // } else {
-    //   sessionStorage.clear();
-    //   this.informe = this.fb.group({
-    //     documento: [0, Validators.required],
-    //     pedido: ['', Validators.required],
-    //     solicitado: ['', Validators.required],
-    //     solicito: ['', Validators.required],
-    //     lesionados: this.fb.array([]),
-    //   });
-    //   console.log(this.informe.controls.lesionados);
-    // }
+    if (sessionStorage.getItem('FormData') !== null) {
+      let storage = sessionStorage.getItem('FormData');
+      if (storage !== null) {
+        let form = JSON.parse(storage);
+        this.informe = this.fb.group({
+          documento: [form.documento, Validators.required],
+          pedido: [form.pedido, Validators.required],
+          solicitado: [form.solicitado, Validators.required],
+          solicito: ['', Validators.required],
+          lesionados: this.fb.array(form.lesionados),
+        });
+      }
+    } else {
+      sessionStorage.clear();
+      this.informe = this.fb.group({
+        documento: [0, Validators.required],
+        pedido: ['', Validators.required],
+        solicitado: ['', Validators.required],
+        solicito: ['', Validators.required],
+        lesionados: this.fb.array([]),
+      });
+      console.log(this.informe.controls.lesionados);
+    }
   }
   onSelect(lesionado: any): void {
     this.selectedLesionado = lesionado;
@@ -77,7 +70,7 @@ export class InformeComponent implements OnInit {
   guardarEnSessionStorage() {
     let formValue = this.informe.value;
     formValue.lesionados = this.lesionados.value;
-    // sessionStorage.setItem('FormData', JSON.stringify(formValue));
+    sessionStorage.setItem('FormData', JSON.stringify(formValue));
   }
   crearLesionado(): FormGroup {
     return new FormGroup({});
