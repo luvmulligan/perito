@@ -59,8 +59,6 @@ export class InformeComponent implements OnInit {
   cargarLesionado() {
     this.lesionados = this.informe.controls.lesionados as FormArray;
     this.lesionados.push(this.crearLesionado());
-    sessionStorage.setItem('Lesionados', JSON.stringify(this.lesionados.value));
-
     this.guardarEnSessionStorage();
   }
   eliminar(i: number) {

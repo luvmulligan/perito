@@ -29,7 +29,6 @@ export class LesionadoComponent implements OnInit {
 
   ngOnInit() {
     this.storage = sessionStorage.getItem('FormData');
-    this.lesionados = sessionStorage.getItem('Lesionados');
 
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
@@ -69,7 +68,7 @@ export class LesionadoComponent implements OnInit {
     // this.lesionados.push(lesionadoValue);
     // this.data.lesionados = this.lesionados;
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
-    // this.mostrarInforme.emit(true);
+    this.mostrarInforme.emit(true);
   }
 
   volver() {
