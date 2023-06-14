@@ -32,7 +32,7 @@ export class LesionadoComponent implements OnInit {
       this.data = JSON.parse(this.storage);
       this.lesionadoId = this.data.lesionados[0];
       this.lesionadoForm = this.fb.group({
-        nombre: [this.data.lesionados[this.lesionadoId].nombre],
+        nombre: [this.data.lesionados[0].nombre],
       });
     } else {
       sessionStorage.clear();
@@ -44,7 +44,7 @@ export class LesionadoComponent implements OnInit {
   }
   guardar() {
     this.currentLesionado = this.lesionadoForm.value;
-    this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
+    this.data.lesionados[0] = this.lesionadoForm.value;
     console.log(this.data);
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
     this.mostrarInforme.emit(true);
