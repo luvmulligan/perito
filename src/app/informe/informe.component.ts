@@ -20,6 +20,7 @@ export class InformeComponent implements OnInit {
   lesionados: any = [];
   selectedLesionado: any;
   currentForm: any;
+  editarPressed: boolean = false;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.informe = this.fb.group({});
@@ -73,7 +74,8 @@ export class InformeComponent implements OnInit {
     return new FormGroup({});
   }
   editar(i: any) {
-    this.router.navigate(['/lesionado', i]);
+    this.editarPressed = true;
+    // this.router.navigate(['/lesionado', i]);
   }
   onSubmit() {
     // TODO: Use EventEmitter with form value

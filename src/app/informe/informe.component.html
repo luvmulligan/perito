@@ -1,5 +1,10 @@
-<button (click)="cargarLesionado()">Cargar Lesionado</button>
-<form [formGroup]="informe" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="informe"
+  (ngSubmit)="onSubmit()"
+  *ngIf="editarPressed === false"
+>
+  <button (click)="cargarLesionado()">Cargar Lesionado</button>
+
   <div
     formArrayName="lesionados"
     *ngFor="let lesionado of informe.controls.lesionados.value; let i = index"
@@ -30,3 +35,7 @@
   />
 </form>
 <!-- <router-outlet></router-outlet> -->
+<app-lesionado
+  *ngIf="editarPressed === true"
+  (mostrarInforme)="editarPressed = true"
+></app-lesionado>

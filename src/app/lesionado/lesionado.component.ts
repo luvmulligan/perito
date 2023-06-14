@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./lesionado.component.css'],
 })
 export class LesionadoComponent implements OnInit {
-  // @Output() mostrarInforme = new EventEmitter<boolean>();
+  @Output() mostrarInforme = new EventEmitter<boolean>();
   lesionadoForm: any;
   data: any;
   storage: any;
@@ -27,10 +27,10 @@ export class LesionadoComponent implements OnInit {
   lesionadoId: any;
 
   ngOnInit() {
-    this.lesionadoId = this.route.snapshot.params.id;
     this.storage = sessionStorage.getItem('FormData');
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
+      this.lesionadoId = this.data.lesionados[0];
       this.lesionadoForm = this.fb.group({
         nombre: [this.data.lesionados[this.lesionadoId].nombre],
       });
@@ -47,9 +47,13 @@ export class LesionadoComponent implements OnInit {
     this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
     console.log(this.data);
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
+    this.mostrarInforme.emit(true);
   }
 
   volver() {
-    this.router.navigate(['/informe']);
+    sessionStorage.setItem('FormData', JSON.stringify(this.data));
+    this.mostrarInforme.emit(true);
+
+    // this.router.navigate(['/informe']);
   }
 }
