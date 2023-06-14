@@ -38,4 +38,6 @@
 <app-lesionado
   *ngIf="editarPressed === true"
   (mostrarInforme)="mostrarInforme()"
+  [informe]="informe"
+  [lesionadoId]="lesionadoId"
 ></app-lesionado>
