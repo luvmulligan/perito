@@ -5,7 +5,10 @@
 <!-- <app-name-editor *ngIf="showNameEditor"></app-name-editor> -->
 
 <!-- <app-profile-editor *ngIf="showProfileEditor"></app-profile-editor> -->
-<app-informe></app-informe>
+<app-informe
+  (emitId)="getId($event)"
+  [lesionadoId]="currentLesionadoId"
+></app-informe>
 <!-- <router-outlet></router-outlet> -->
 
 <!-- 

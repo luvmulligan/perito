@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormDataService } from '../form-data.service';
@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class LesionadoComponent implements OnInit {
   @Output() mostrarInforme = new EventEmitter<boolean>();
+  @Input() lesionadoId: any;
   lesionadoForm: any;
   data: any;
   storage: any;
@@ -24,15 +25,14 @@ export class LesionadoComponent implements OnInit {
   ) {
     this.lesionadoForm = this.fb.group({});
   }
-  lesionadoId: any;
 
   ngOnInit() {
     this.storage = sessionStorage.getItem('FormData');
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
-      this.lesionadoId = this.data.lesionados[0];
+      // this.lesionadoId = this.data.lesionados[0];
       this.lesionadoForm = this.fb.group({
-        nombre: [this.data.lesionados[0].nombre],
+        nombre: [this.data.lesionados[this.lesionadoId].nombre],
       });
     } else {
       sessionStorage.clear();
@@ -44,7 +44,7 @@ export class LesionadoComponent implements OnInit {
   }
   guardar() {
     this.currentLesionado = this.lesionadoForm.value;
-    this.data.lesionados[0] = this.lesionadoForm.value;
+    this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
     console.log(this.data);
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
     this.mostrarInforme.emit(true);
@@ -52,6 +52,8 @@ export class LesionadoComponent implements OnInit {
 
   volver() {
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
+    console.log(this.data);
+
     this.mostrarInforme.emit(true);
 
     // this.router.navigate(['/informe']);

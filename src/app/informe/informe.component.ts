@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
@@ -21,6 +21,8 @@ export class InformeComponent implements OnInit {
   selectedLesionado: any;
   currentForm: any;
   editarPressed: boolean = false;
+  @Output() emitId = new EventEmitter<number>();
+  @Input() lesionadoId: any;
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.informe = this.fb.group({});
@@ -75,7 +77,11 @@ export class InformeComponent implements OnInit {
   }
   editar(i: any) {
     this.editarPressed = true;
+    this.emitId.emit(i);
     // this.router.navigate(['/lesionado', i]);
+  }
+  mostrarInforme() {
+    this.editarPressed = false;
   }
   onSubmit() {
     // TODO: Use EventEmitter with form value
