@@ -16,6 +16,7 @@ export class LesionadoComponent implements OnInit {
   data: any;
   storage: any;
   currentLesionado: any;
+  lesionados: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -57,10 +58,11 @@ export class LesionadoComponent implements OnInit {
     // this.currentLesionado = this.lesionadoForm.value;
     this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
     let lesionadoValue = this.data.lesionados[this.lesionadoId];
-    this.data.lesionados[this.lesionadoId] = lesionadoValue;
-
+    // this.data.lesionados.push({ lesionadoValue });
+    this.lesionados.push(lesionadoValue);
+    this.data.lesionados = this.lesionados;
     console.log(this.data.lesionados);
-
+    console.log(this.data);
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
     // this.mostrarInforme.emit(true);
   }
