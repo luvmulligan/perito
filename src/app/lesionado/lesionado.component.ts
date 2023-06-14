@@ -29,6 +29,7 @@ export class LesionadoComponent implements OnInit {
 
   ngOnInit() {
     this.storage = sessionStorage.getItem('FormData');
+    this.lesionados = sessionStorage.getItem('Lesionados');
 
     if (this.storage !== null) {
       this.data = JSON.parse(this.storage);
@@ -55,14 +56,18 @@ export class LesionadoComponent implements OnInit {
     this.currentLesionado = this.data.lesionados[this.lesionadoId];
   }
   guardar() {
-    // this.currentLesionado = this.lesionadoForm.value;
-    this.data.lesionados[this.lesionadoId] = this.lesionadoForm.value;
-    let lesionadoValue = this.data.lesionados[this.lesionadoId];
-    // this.data.lesionados.push({ lesionadoValue });
-    this.lesionados.push(lesionadoValue);
-    this.data.lesionados = this.lesionados;
-    console.log(this.data.lesionados);
+    this.data.lesionados.push(this.lesionadoForm.value);
     console.log(this.data);
+
+    // let lesionados = JSON.parse(this.lesionados);
+    // lesionados.push(this.lesionadoForm.value);
+    // let index = lesionados.indexOf(this.lesionadoId);
+
+    // this.data.lesionados[this.lesionsadoId] = this.lesionadoForm.value;
+    // let lesionadoValue = this.data.lesionados[this.lesionadoId];
+    // this.data.lesionados.push({ lesionadoValue });
+    // this.lesionados.push(lesionadoValue);
+    // this.data.lesionados = this.lesionados;
     sessionStorage.setItem('FormData', JSON.stringify(this.data));
     // this.mostrarInforme.emit(true);
   }
