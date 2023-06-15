@@ -53,12 +53,12 @@ export class LesionadoComponent implements OnInit {
     //     nombre: [''],
     //   });
     // }
-    this.currentLesionado = this.informe.value;
+    // this.currentLesionado = this.informe.value;
   }
   guardar() {
+    // this.emitForm.emit(this.informe);
+    // sessionStorage.setItem('FormData', JSON.stringify(this.informe.value));
     console.log(this.informe.value);
-    this.emitForm.emit(this.informe);
-    sessionStorage.setItem('FormData', JSON.stringify(this.informe.value));
   }
 
   volver() {

@@ -73,7 +73,7 @@ export class InformeComponent implements OnInit {
   guardarEnSessionStorage() {
     let formValue = this.informe.value;
     formValue.lesionados = this.lesionados.value;
-    this.emitForm.emit(this.informe);
+    console.log(this.informe);
 
     // sessionStorage.setItem('FormData', JSON.stringify(formValue));
   }

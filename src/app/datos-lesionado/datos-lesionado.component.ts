@@ -38,7 +38,6 @@ export class DatosLesionadoComponent implements OnInit {
       'nombre',
       this.nombre
     );
-    console.log(this.informe.controls.lesionados.controls[this.lesionadoId]);
     // this.lesionadoForm.setValue({
     //   nombre: this.datosLesionado.controls.nombre.value,
     // });
