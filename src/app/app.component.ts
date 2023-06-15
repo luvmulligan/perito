@@ -11,6 +11,7 @@ export type EditorType = 'name' | 'profile';
 export class AppComponent {
   mostrarInforme: boolean = true;
   currentLesionadoId: any;
+  formData: any;
   constructor(private formDataService: FormDataService) {
     this.formDataService.initForm();
   }
@@ -26,6 +27,10 @@ export class AppComponent {
   getId(event: any) {
     this.currentLesionadoId = event;
     console.log(this.currentLesionadoId);
+  }
+  getForm(event: any) {
+    this.formData = event;
+    console.log(this.formData);
   }
 
   toggleEditor(type: EditorType) {

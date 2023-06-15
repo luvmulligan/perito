@@ -16,12 +16,15 @@ import { FormDataService } from '../form-data.service';
   styleUrls: ['./informe.component.css'],
 })
 export class InformeComponent implements OnInit {
-  informe: FormGroup;
+  @Input() informe: FormGroup;
+
   lesionados: any = [];
   selectedLesionado: any;
   currentForm: any;
   editarPressed: boolean = false;
   @Output() emitId = new EventEmitter<number>();
+  @Output() emitForm = new EventEmitter<any>();
+
   @Input() lesionadoId: any;
 
   constructor(private fb: FormBuilder, private router: Router) {
@@ -42,7 +45,6 @@ export class InformeComponent implements OnInit {
         });
       }
     } else {
-      sessionStorage.clear();
       this.informe = this.fb.group({
         documento: [0, Validators.required],
         pedido: ['', Validators.required],
@@ -61,6 +63,7 @@ export class InformeComponent implements OnInit {
     this.lesionados.push(this.crearLesionado());
     this.guardarEnSessionStorage();
   }
+
   eliminar(i: number) {
     this.lesionados = this.informe.controls.lesionados as FormArray;
     this.lesionados.removeAt(i);
@@ -70,14 +73,15 @@ export class InformeComponent implements OnInit {
   guardarEnSessionStorage() {
     let formValue = this.informe.value;
     formValue.lesionados = this.lesionados.value;
-    sessionStorage.setItem('FormData', JSON.stringify(formValue));
+    this.emitForm.emit(this.informe);
+
+    // sessionStorage.setItem('FormData', JSON.stringify(formValue));
   }
   crearLesionado(): FormGroup {
     return new FormGroup({});
   }
   editar(i: any) {
     this.emitId.emit(i);
-
     this.editarPressed = true;
     // this.router.navigate(['/lesionado', i]);
   }

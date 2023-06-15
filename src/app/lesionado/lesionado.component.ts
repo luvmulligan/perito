@@ -12,8 +12,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class LesionadoComponent implements OnInit {
   @Output() mostrarInforme = new EventEmitter<boolean>();
   @Input() lesionadoId: any;
-  @Input() informe: any;
   lesionadoForm: any;
+  @Input() informe: any;
+  @Output() emitForm = new EventEmitter<any>();
+
+  // lesionadoForm: any;
   data: any;
   storage: any;
   currentLesionado: any;
@@ -32,36 +35,29 @@ export class LesionadoComponent implements OnInit {
 
   ngOnInit() {
     let newObj = { ...this.obj1, ...this.obj2 };
-    console.log(newObj);
-    this.lesionadoForm = this.fb.group({ nombre: [''] });
-    this.storage = sessionStorage.getItem('FormData');
-    if (this.storage !== null) {
-      this.data = JSON.parse(this.storage);
-      if (this.data.lesionados[this.lesionadoId] === undefined) {
-        this.lesionadoForm = this.fb.group({
-          nombre: [''],
-        });
-      }
-      if (this.data.lesionados[this.lesionadoId] !== undefined) {
-        this.lesionadoForm = this.fb.group({
-          nombre: [this.data.lesionados[this.lesionadoId].nombre],
-        });
-      }
-    } else {
-      sessionStorage.clear();
-      this.lesionadoForm = this.fb.group({
-        nombre: [''],
-      });
-    }
-    this.currentLesionado = this.data.lesionados[this.lesionadoId];
+    // this.lesionadoForm = this.fb.group({ nombre: [''] });
+    // this.storage = sessionStorage.getItem('FormData');
+    // if (this.storage !== null) {
+    //   this.data = JSON.parse(this.storage);
+    //   if (this.data.lesionados[this.lesionadoId] === undefined) {
+    //     this.lesionadoForm = this.fb.group({ nombre: [''] });
+    //   }
+    //   if (this.data.lesionados[this.lesionadoId] !== undefined) {
+    //     this.lesionadoForm = this.fb.group({
+    //       nombre: [this.data.lesionados[this.lesionadoId].nombre],
+    //     });
+    //   }
+    // } else {
+    //   sessionStorage.clear();
+    //   this.lesionadoForm = this.fb.group({
+    //     nombre: [''],
+    //   });
+    // }
+    this.currentLesionado = this.informe.value;
   }
   guardar() {
-    console.log(this.lesionadoForm.value);
-
-    this.informe.controls.lesionados.controls.push(this.lesionadoForm);
-    this.informe.controls.lesionados.removeAt(this.lesionadoId);
-
     console.log(this.informe.value);
+    this.emitForm.emit(this.informe);
     sessionStorage.setItem('FormData', JSON.stringify(this.informe.value));
   }
 
