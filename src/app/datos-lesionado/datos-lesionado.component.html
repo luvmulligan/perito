@@ -1,8 +1,3 @@
-<form action="">
-  <input
-    type="text"
-    placeholder="nombre"
-    [formControl]="nombre"
-    (click)="guardar()"
-  />
+<form action="" [formGroup]="datosLesionado">
+  <input type="text" placeholder="nombre" formControlName="nombre" />
 </form>

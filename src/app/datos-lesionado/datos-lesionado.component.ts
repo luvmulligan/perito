@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
@@ -10,17 +10,31 @@ export class DatosLesionadoComponent implements OnInit {
   @Input() lesionadoForm: any;
   @Input() lesionadoId: any;
   @Input() informe: any;
+  @Output() emitForm = new EventEmitter<any>();
+
   nombre: any;
 
   datosLesionado: any;
   storage: any;
   data: any;
   constructor(private fb: FormBuilder) {
-    this.datosLesionado = this.fb.group({ nombre: [''] });
-    this.nombre = new FormControl('');
+    this.datosLesionado = this.fb.group({ nombre: [''], apellido: [''] });
+    // this.nombre = new FormControl('');
   }
 
   ngOnInit() {
+    console.log(this.informe);
+    // this.informe.controls.lesionados.controls[this.lesionadoId].addControl(
+    //   'nombre',
+    //   this.datosLesionado.controls.nombre
+    // );
+
+    this.informe.controls.lesionados.setControl(
+      this.lesionadoId,
+      this.datosLesionado
+    );
+
+    this.informe.valueChanges.subscribe((value: any) => {});
     // this.storage = sessionStorage.getItem('FormData');
     // if (this.storage !== null) {
     //   this.data = JSON.parse(this.storage);
@@ -34,10 +48,11 @@ export class DatosLesionadoComponent implements OnInit {
     // }
   }
   guardar() {
-    this.informe.controls.lesionados.controls[this.lesionadoId].addControl(
-      'nombre',
-      this.nombre
-    );
+    // this.informe.controls.lesionados.controls[this.lesionadoId].addControl(
+    //   'nombre',
+    //   this.nombre
+    // );
+    // this.emitForm.emit(this.datosLesionado);
     // this.lesionadoForm.setValue({
     //   nombre: this.datosLesionado.controls.nombre.value,
     // });

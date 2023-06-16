@@ -14,7 +14,6 @@ export class LesionadoComponent implements OnInit {
   @Input() lesionadoId: any;
   lesionadoForm: any;
   @Input() informe: any;
-  @Output() emitForm = new EventEmitter<any>();
 
   // lesionadoForm: any;
   data: any;
@@ -27,14 +26,12 @@ export class LesionadoComponent implements OnInit {
     private location: Location,
     private router: Router,
     private fb: FormBuilder
-  ) {
-    this.lesionadoForm = this.fb.group({});
-  }
+  ) {}
   obj1 = { nombre: 'pepe' };
   obj2 = { edad: '20' };
 
   ngOnInit() {
-    let newObj = { ...this.obj1, ...this.obj2 };
+    console.log(this.informe);
     // this.lesionadoForm = this.fb.group({ nombre: [''] });
     // this.storage = sessionStorage.getItem('FormData');
     // if (this.storage !== null) {
@@ -56,9 +53,14 @@ export class LesionadoComponent implements OnInit {
     // this.currentLesionado = this.informe.value;
   }
   guardar() {
+    // this.getDatos(event);
     // this.emitForm.emit(this.informe);
     // sessionStorage.setItem('FormData', JSON.stringify(this.informe.value));
+
     console.log(this.informe.value);
+  }
+  getDatos(event: any) {
+    console.log(event);
   }
 
   volver() {
