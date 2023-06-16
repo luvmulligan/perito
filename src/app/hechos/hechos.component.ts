@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-hechos',
@@ -6,11 +7,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./hechos.component.css'],
 })
 export class HechosComponent implements OnInit {
-  @Input() lesionadoForm: any;
+  @Input() lesionadoId: any;
+  @Input() informe: any;
+  hechos: any;
 
-  constructor() {}
+  constructor(private fb: FormBuilder) {
+    this.hechos = this.fb.group({ vehiculo: [''] });
+  }
 
   ngOnInit() {
-    console.log(this.lesionadoForm.value);
+    this.informe.controls.lesionados.addControl(this.lesionadoId, this.hechos);
   }
 }
